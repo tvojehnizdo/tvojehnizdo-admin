@@ -1,0 +1,28 @@
+ (cd "$(git rev-parse --show-toplevel)" && git apply --3way <<'EOF' 
+diff --git a//dev/null b/admin.html
+index 0000000000000000000000000000000000000000..89780f91d839ad1137a88df91e20b41f7d30bd75 100644
+--- a//dev/null
++++ b/admin.html
+@@ -0,0 +1,19 @@
++<!DOCTYPE html>
++<html lang="cs">
++<head>
++  <meta charset="UTF-8">
++  <meta name="viewport" content="width=device-width, initial-scale=1.0">
++  <title>Administrace konfigurátoru</title>
++  <link rel="stylesheet" href="style.css">
++  <script defer src="admin.js"></script>
++</head>
++<body>
++  <h1>Administrace konfigurátoru</h1>
++  <table id="entries-table">
++    <thead>
++      <tr><th>Čas</th><th>Data</th></tr>
++    </thead>
++    <tbody id="entries"></tbody>
++  </table>
++</body>
++</html>
+ 
+EOF
+)
