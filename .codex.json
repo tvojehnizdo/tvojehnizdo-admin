@@ -1,0 +1,35 @@
+{
+  "": "https://chatgpt.com/schemas/v1/codex.json",
+  "name": "Tvoje Hnízdo – Hlavní prostředí",
+  "description": "Hlavní prostředí pro automatizaci, opravy chyb a optimalizaci všech repozitářů projektu Tvoje Hnízdo. Zajišťuje bezchybný build, CI/CD, nasazení, správu prostředí a napojení na služby jako Vercel, Google Sheets, OpenAI, SMTP a další.",
+  "tasks": [
+    {
+      "name": "Zkontroluj build a oprav všechny chyby",
+      "description": "Proveď kompletní kontrolu repozitáře, oprav chybějící importy, špatné cesty a chyby ve funkčních i vizuálních komponentech. Zajisti, že projekt běží bezchybně v  i ."
+    },
+    {
+      "name": "Vyčisti repozitář",
+      "description": "Odstraň nepoužívané komponenty, knihovny, komentáře, zálohované soubory a testovací zbytky. Udržuj repozitář profesionálně čistý."
+    },
+    {
+      "name": "Zavést CI/CD",
+      "description": "Připrav GitHub Actions nebo Vercel hooks pro automatické nasazení při commitu na hlavní větev. Kontrola prostředí, , build a nasazení."
+    },
+    {
+      "name": "Zkontroluj připojení externích služeb",
+      "description": "Prověř napojení na Google Sheets, OpenAI API, EmailJS/SMTP, PDF generátor. Zkontroluj klíče a doplň do ."
+    },
+    {
+      "name": "Optimalizuj UI/UX",
+      "description": "Uprav rozložení, komponenty a styly podle shadcn/ui + Tailwind standardu. Zajisti responzivitu a profesionální vzhled."
+    },
+    {
+      "name": "Zaveď základní ochranu",
+      "description": "Implementuj jednoduché přihlášení nebo hardcoded přístup pro admin panel. Chraň neautorizovaný přístup a citlivé akce."
+    },
+    {
+      "name": "Zajisti ostré nasazení",
+      "description": "Po každé úpravě ověř, že vše funguje na Vercelu nebo cílové doméně. Otestuj , , zabezpečení a základní funkcionality."
+    }
+  ]
+}
