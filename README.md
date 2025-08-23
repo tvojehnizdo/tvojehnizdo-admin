@@ -1,2 +1,3 @@
-# Tvoje Hnízdo Admin Panel
-Projekt připravený ke spuštění.
+# Tvoje Hnízdo – Admin Panel
+
+✅ Funkční verze připravená k nahrání do GitHubu a nasazení přes Vercel.
