@@ -1,0 +1,10 @@
+{
+  "triggers": [
+    {
+      "name": "weekly-export",
+      "schedule": "0 8 * * 5",
+      "command": "/api/cron-weekly-export",
+      "enabled": true
+    }
+  ]
+}
