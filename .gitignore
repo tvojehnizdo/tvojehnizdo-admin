@@ -1,0 +1,7 @@
+﻿node_modules
+.next
+.next.migrated*
+out
+.env
+.env.*
+!.env.example
