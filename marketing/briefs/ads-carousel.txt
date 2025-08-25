@@ -1,0 +1,1 @@
+Kampaň: {TÉMA}. Dej 3 nadpisy (max 30), 3 copy (max 60), 5 slajdů karuselu, jasné CTA. Cílovka: {CÍLOVKA}.
