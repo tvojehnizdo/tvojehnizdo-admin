@@ -27,8 +27,14 @@
     "paths": {
       "@/*": [
         "*/"
+      ],
+      "@lib/*": [
+        "lib/*",
+        "src/lib/*",
+        "./lib/*"
       ]
-    }
+    },
+    "baseUrl": "."
   },
   "include": [
     "next-env.d.ts",

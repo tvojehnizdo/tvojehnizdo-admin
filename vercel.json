@@ -1,9 +1,4 @@
 {
-  "redirects": [
-    {
-      "source": "/:path*",
-      "destination": "https://tvojehnizdo.cms.webnode.cz/:path*",
-      "permanent": true
-    }
-  ]
+  "installCommand": "npm ci --legacy-peer-deps",
+  "buildCommand": "npm run build"
 }
