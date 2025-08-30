@@ -1,0 +1,5 @@
+{
+  "redirects": [
+    { "source": "/:path*", "destination": "https://tvojehnizdo.cms.webnode.cz/:path*", "permanent": true }
+  ]
+}

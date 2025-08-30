@@ -11,4 +11,4 @@ if (Test-Path .\marketing\content) {
     $raw|Set-Content $_.FullName -Encoding UTF8
   }
 }
-Write-Host "Marketing povolen. Pro produkci nezapomeň re-deploy." -ForegroundColor Green
+Write-Host "Marketing povolen. Pro prod nezapomeň re-deploy." -ForegroundColor Green

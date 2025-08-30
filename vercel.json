@@ -1,11 +1,9 @@
-@'
 {
-  "version": 2,
-  "crons": [
+  "redirects": [
     {
-      "path": "/api/cron-weekly-export",
-      "schedule": "0 8 * * 5"
+      "source": "/:path*",
+      "destination": "https://tvojehnizdo.cms.webnode.cz/:path*",
+      "permanent": true
     }
   ]
 }
-'@ | Set-Content -Encoding utf8NoBOM vercel.json

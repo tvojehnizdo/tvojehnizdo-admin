@@ -1,0 +1,19 @@
+{
+  "name": "tools-scraper",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.11.0",
+    "fs-extra": "^11.3.1",
+    "path": "^0.12.7",
+    "puppeteer": "^24.17.1",
+    "url": "^0.11.4"
+  },
+  "description": ""
+}
