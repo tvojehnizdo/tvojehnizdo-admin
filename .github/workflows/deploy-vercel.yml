@@ -1,0 +1,26 @@
+name: Deploy Vercel
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    name: Deploy → Vercel
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - run: npm ci
+      - run: npm run build
+
+      - run: npm i -g vercel
+      - run: vercel pull --yes --environment=production --token ${{ secrets.VERCEL_TOKEN }}
+      - run: vercel build --prod --token ${{ secrets.VERCEL_TOKEN }}
+      - run: vercel deploy --prebuilt --prod --token ${{ secrets.VERCEL_TOKEN }}
