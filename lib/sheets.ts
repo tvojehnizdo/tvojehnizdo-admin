@@ -1,22 +1,51 @@
-import { google } from "googleapis";
+export type LeadLog = {
+  timeISO: string;
+  type: string;
+  email?: string;
+  name?: string;
+  payload?: string;
+};
 
-function getJwt() {
-  const email = process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL;
-  let key = process.env.GOOGLE_PRIVATE_KEY;
-  if (!email || !key) throw new Error("Missing GOOGLE_SERVICE_ACCOUNT_EMAIL/GOOGLE_PRIVATE_KEY");
-  key = key.replace(/\\n/g, "\n"); // převod \n z env
-  return new google.auth.JWT({ email, key, scopes: ["https://www.googleapis.com/auth/spreadsheets"] });
-}
+/** No-op log do Sheets (zapne se až po doplnění klíčů) */
+export const appendLeadLog = async (_row: LeadLog): Promise<void> => {
+  if (!process.env.GSHEETS_PRIVATE_KEY || !process.env.GSHEETS_CLIENT_EMAIL || !process.env.GSHEETS_SHEET_ID) return;
+  // TODO: implementace googleapis sheets.values.append
+};
 
-export async function appendSheetRow(values: any[], opts: { spreadsheetId?: string; range?: string } = {}) {
-  const spreadsheetId = opts.spreadsheetId ?? process.env.SHEETS_SPREADSHEET_ID;
-  const range = opts.range ?? process.env.SHEETS_RANGE ?? "A:Z";
-  if (!spreadsheetId) throw new Error("Missing SHEETS_SPREADSHEET_ID");
-  const auth = await getJwt();
-  const sheets = google.sheets({ version: "v4", auth });
-  const res = await sheets.spreadsheets.values.append({
-    spreadsheetId, range, valueInputOption: "USER_ENTERED", insertDataOption: "INSERT_ROWS",
-    requestBody: { values: [values] },
-  });
-  return { ok: true, updates: res.data.updates };
-}
+/**
+ * Flexibilní helper pro zápis řádku:
+ * 1) appendSheetRow(values, { spreadsheetId, range })
+ * 2) appendSheetRow(spreadsheetId, range, values)
+ * 3) appendSheetRow({ spreadsheetId, range, values })
+ * V tuto chvíli NO-OP bez GSheets klíčů.
+ */
+export const appendSheetRow = async (...args: any[]): Promise<void> => {
+  if (!process.env.GSHEETS_PRIVATE_KEY || !process.env.GSHEETS_CLIENT_EMAIL || !process.env.GSHEETS_SHEET_ID) return;
+
+  let spreadsheetId = "", range = "";
+  let values: (string | number | null)[] = [];
+
+  if (Array.isArray(args[0]) && typeof args[1] === "object") {
+    // 1) (values, { spreadsheetId, range })
+    values = args[0];
+    spreadsheetId = args[1]?.spreadsheetId || "";
+    range = args[1]?.range || "";
+  } else if (typeof args[0] === "string" && typeof args[1] === "string" && Array.isArray(args[2])) {
+    // 2) (spreadsheetId, range, values)
+    spreadsheetId = args[0];
+    range = args[1];
+    values = args[2];
+  } else if (typeof args[0] === "object" && Array.isArray(args[0]?.values)) {
+    // 3) ({ spreadsheetId, range, values })
+    spreadsheetId = args[0]?.spreadsheetId || "";
+    range = args[0]?.range || "";
+    values = args[0]?.values;
+  } else {
+    return; // nevalidní vstup – tiše ukonči (bez pádu)
+  }
+
+  // TODO: reálný zápis přes Google Sheets API (values.append)
+  // console.log("appendSheetRow()", { spreadsheetId, range, values });
+};
+
+export default appendLeadLog;

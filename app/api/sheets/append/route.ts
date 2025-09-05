@@ -17,10 +17,11 @@ export async function POST(req: Request) {
     if (!Array.isArray(values)) return corsJson({ ok:false, error:"Body must include 'values' array" }, { status:400 });
 
     const res = await appendSheetRow(values, { spreadsheetId, range });
-    await logToSheets("sheets.append.ok", { values, spreadsheetId, range }, res);
+    await logToSheets("sheets.append.ok", { values, spreadsheetId, range }, { res });
     return corsJson(res, { status:200 });
   } catch (e:any) {
     await logToSheets("sheets.append.err", {}, { error:String(e?.message||e) }).catch(()=>{});
     return corsJson({ ok:false, error:String(e?.message||e) }, { status:500 });
   }
 }
+

@@ -1,0 +1,2 @@
+type Entry={count:number;resetAt:number}; const bucket=new Map<string,Entry>();
+export function rateLimit(ip?:string){ if(!ip) return {ok:true}; const win=Number(process.env.RATE_LIMIT_WINDOW_SECONDS||"15"); const max=Number(process.env.RATE_LIMIT_MAX||"5"); const now=Date.now(); const e=bucket.get(ip); if(!e||e.resetAt<now){ bucket.set(ip,{count:1,resetAt:now+win*1000}); return {ok:true}; } e.count+=1; if(e.count>max) return {ok:false,retryAfter:Math.ceil((e.resetAt-now)/1000)}; return {ok:true}; }

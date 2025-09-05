@@ -1,16 +1,27 @@
-import nodemailer from 'nodemailer';
+import * as nodemailer from "nodemailer";
 
-type MailInput = { to: string; subject: string; html?: string; text?: string };
+export type Attachment = { filename: string; content: Buffer | string; contentType?: string };
+export type MailInput = {
+  to: string | string[];
+  subject: string;
+  text?: string;
+  html?: string;
+  attachments?: Attachment[];
+};
 
-export async function sendMail({ to, subject, html, text }: MailInput) {
+function ensureSmtp() {
+  const need = ["SMTP_HOST","SMTP_PORT","SMTP_USER","SMTP_PASS","SMTP_FROM"];
+  const miss = need.filter(k => !process.env[k as keyof NodeJS.ProcessEnv]);
+  if (miss.length) throw new Error("SMTP not configured: missing " + miss.join(","));
+}
+
+export async function sendMail(input: MailInput) {
+  ensureSmtp();
   const transporter = nodemailer.createTransport({
-    host: process.env.SMTP_HOST || 'smtp-relay.brevo.com',
-    port: Number(process.env.SMTP_PORT ?? 587),
-    secure: process.env.SMTP_SECURE === 'true',
-    auth: process.env.SMTP_USER ? { user: process.env.SMTP_USER as string, pass: process.env.SMTP_PASS as string } : undefined,
+    host: process.env.SMTP_HOST as string,
+    port: Number(process.env.SMTP_PORT || "465"),
+    secure: String(process.env.SMTP_PORT || "465") === "465",
+    auth: { user: process.env.SMTP_USER as string, pass: process.env.SMTP_PASS as string },
   });
-
-  const from = process.env.MAIL_FROM || `Tvoje Hnízdo <no-reply@${process.env.MAIL_DOMAIN ?? 'tvojehnizdo.com'}>`;
-  await transporter.sendMail({ from, to, subject, html, text });
-  return { ok: true };
+  return transporter.sendMail({ from: `"Tvoje Hnízdo" <${process.env.SMTP_FROM}>`, ...input });
 }
