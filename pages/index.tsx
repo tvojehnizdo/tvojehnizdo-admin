@@ -1,37 +1,44 @@
 export default function Home() {
   const phases = [
     {
+      id: 'phase-1-build',
       name: "Zkontroluj build a oprav všechny chyby",
       description: "Proveď kompletní kontrolu repozitáře, oprav chybějící importy, špatné cesty a chyby ve funkčních i vizuálních komponentech. Zajisti, že projekt běží bezchybně.",
       completed: true
     },
     {
+      id: 'phase-2-cleanup',
       name: "Vyčisti repozitář",
       description: "Odstraň nepoužívané komponenty, knihovny, komentáře, zálohované soubory a testovací zbytky. Udržuj repozitář profesionálně čistý.",
       completed: false,
       current: true
     },
     {
+      id: 'phase-3-cicd',
       name: "Zavést CI/CD",
       description: "Připrav GitHub Actions nebo Vercel hooks pro automatické nasazení při commitu na hlavní větev. Kontrola prostředí, build a nasazení.",
       completed: false
     },
     {
+      id: 'phase-4-services',
       name: "Zkontroluj připojení externích služeb",
-      description: "Prověř napojení na Google Sheets, OpenAI API, EmailJS/SMTP, PDF generátor. Zkontroluj klíče a doplň do.",
+      description: "Prověř napojení na Google Sheets, OpenAI API, EmailJS/SMTP, PDF generátor. Zkontroluj klíče a doplň do prostředí.",
       completed: false
     },
     {
+      id: 'phase-5-uiux',
       name: "Optimalizuj UI/UX",
       description: "Uprav rozložení, komponenty a styly podle shadcn/ui + Tailwind standardu. Zajisti responzivitu a profesionální vzhled.",
       completed: false
     },
     {
+      id: 'phase-6-auth',
       name: "Zaveď základní ochranu",
       description: "Implementuj jednoduché přihlášení nebo hardcoded přístup pro admin panel. Chraň neautorizovaný přístup a citlivé akce.",
       completed: false
     },
     {
+      id: 'phase-7-deploy',
       name: "Zajisti ostré nasazení",
       description: "Po každé úpravě ověř, že vše funguje na Vercelu nebo cílové doméně. Otestuj zabezpečení a základní funkcionality.",
       completed: false
@@ -90,7 +97,7 @@ export default function Home() {
         <div className="space-y-4">
           {phases.map((phase, index) => (
             <div 
-              key={index}
+              key={phase.id}
               className={`bg-white rounded-lg shadow p-6 border-l-4 ${
                 phase.completed 
                   ? 'border-green-500 bg-green-50' 
